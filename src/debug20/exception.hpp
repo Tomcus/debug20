@@ -10,7 +10,7 @@ namespace d20 {
 		virtual const char* where() const noexcept = 0;
 	};
 
-	class system_error: public excpetion {
+	class system_error: public exception {
 	public:
 		system_error();
 		const char* what() const noexcept override;
