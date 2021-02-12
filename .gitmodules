@@ -1,0 +1,3 @@
+[submodule "external_dependecies/fmt"]
+	path = external_dependecies/fmt
+	url = git@github.com:fmtlib/fmt.git
