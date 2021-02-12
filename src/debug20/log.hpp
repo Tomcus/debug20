@@ -43,7 +43,7 @@ namespace d20 {
 		explicit logger_impl(const std::string& name);
 		void append_printer(printer p) noexcept;
 		template <logging_level severity>
-		void log(const std::string_view& message) const noexcept;
+		void log(const std::string_view& message, const std::source_location& location = std::source_location::current()) const noexcept;
 	private:
 		std::string module_name;
 		std::vector<printer> outputs;

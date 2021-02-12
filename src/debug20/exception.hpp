@@ -3,21 +3,23 @@
 
 #include <stdexcept>
 #include <string>
+#include <source_location>
 
 namespace d20 {
 	class exception: public std::exception {
 	public:
-		virtual const char* where() const noexcept = 0;
+		exception(const std::source_location& location = std::source_location::current());
+		std::source_location where() const noexcept;
+	private:
+		std::source_location sl;
 	};
 
 	class system_error: public exception {
 	public:
 		system_error();
 		const char* what() const noexcept override;
-		const char* where() const noexcept override;
 	private:
 		std::string error_message;
-		std::string location_string;
 	};
 }
 

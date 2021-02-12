@@ -72,12 +72,15 @@ void logger_impl::append_printer(printer p) noexcept {
 }
 
 template <logging_level severity>
-void logger_impl::log(const std::string_view& message) const noexcept {
+void logger_impl::log(const std::string_view& message, const std::source_location& location const noexcept {
 	auto time = std::time(nullptr);
 	auto to_print = fmt::format(log_template.c_str(), fmt::arg("message", message),
 													  fmt::arg("severity", to_string(severity)),
 													  fmt::arg("time", tile),
-													  fmt::arg("module", module_name));
+													  fmt::arg("module", module_name),
+													  fmt::arg("file", location.file_name()),
+													  fmt::arg("line", location.line()),
+													  fmt::arg("function", location.function_name()));
 	for (auto printer: outputs) {
 		printer->log<severity>(to_print);
 	}
