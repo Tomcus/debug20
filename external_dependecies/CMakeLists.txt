@@ -1,1 +1,5 @@
-add_subdirectory(fmt)
+if (TARGET fmt)
+    message(WARNING "FMT already processed skipping adding it in external dependecies")
+else()
+    add_subdirectory(fmt)
+endif()
