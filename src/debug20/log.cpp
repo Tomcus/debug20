@@ -50,7 +50,7 @@ logger_impl::logger_impl(const std::string& name) {
 	module_name = name;
 }
 
-std::string to_string(logging_level ll) {
+std::string to_string(const logging_level ll) {
 	switch(ll) {
 		case logging_level::TRACE:
 			return "trace";
@@ -65,6 +65,7 @@ std::string to_string(logging_level ll) {
 		case logging_level::CRITICAL:
 			return "critical";
 	}
+	return ""; //TODO: Throw an error
 }
 
 void logger_impl::append_printer(printer p) noexcept {
@@ -72,11 +73,11 @@ void logger_impl::append_printer(printer p) noexcept {
 }
 
 template <logging_level severity>
-void logger_impl::log(const std::string_view& message, const std::source_location& location const noexcept {
+void logger_impl::log(const std::string_view& message, const std::source_location& location) const noexcept {
 	auto time = std::time(nullptr);
 	auto to_print = fmt::format(log_template.c_str(), fmt::arg("message", message),
 													  fmt::arg("severity", to_string(severity)),
-													  fmt::arg("time", tile),
+													  fmt::arg("time", time),
 													  fmt::arg("module", module_name),
 													  fmt::arg("file", location.file_name()),
 													  fmt::arg("line", location.line()),
@@ -91,4 +92,5 @@ logger get_logger(const std::string_view& logger_name, const std::vector<printer
 	for (auto printer:printers) {
 		res->append_printer(printer);
 	}
+	return res;
 }

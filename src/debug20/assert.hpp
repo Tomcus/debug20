@@ -3,10 +3,12 @@
 
 #include <string_view>
 #include <string>
+#include <source_location>
 #include "exception.hpp"
 
 namespace d20 {
 	class assertion_error: public exception {
+	public:
 		assertion_error(const std::string_view& message, const std::source_location& location);
 		const char* what() const noexcept override;
 	private:

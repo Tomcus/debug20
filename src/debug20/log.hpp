@@ -6,6 +6,7 @@
 #include <string_view>
 #include <vector>
 #include <filesystem>
+#include <source_location>
 
 namespace d20 {
 	enum struct logging_level : int {
@@ -17,7 +18,7 @@ namespace d20 {
 		CRITICAL = 5
 	};
 
-	std::string to_string(logging_level ll);
+	std::string to_string(const logging_level ll);
 
 	static std::string log_template = "{message}";
 

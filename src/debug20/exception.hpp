@@ -8,17 +8,17 @@
 namespace d20 {
 	class exception: public std::exception {
 	public:
-		exception(const std::source_location& location = std::source_location::current());
+		exception(const std::source_location& location);
 		std::source_location where() const noexcept;
-	private:
+	protected:
 		std::source_location sl;
 	};
 
 	class system_error: public exception {
 	public:
-		system_error();
+		system_error(const std::source_location& location = std::source_location::current());
 		const char* what() const noexcept override;
-	private:
+	protected:
 		std::string error_message;
 	};
 }

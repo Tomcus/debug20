@@ -2,9 +2,11 @@
 
 using namespace d20;
 
-assertion_error::assertion_error(const std::string_view& message, const std::source_location& location): exception(), error_message(message), sl(location) { }
+assertion_error::assertion_error(const std::string_view& message,
+								 const std::source_location& location): exception(location),
+								 										error_message(message) { }
 
-const char* assertion_error::what() const noexcept override {
+const char* assertion_error::what() const noexcept {
 	return error_message.c_str();
 }
 
