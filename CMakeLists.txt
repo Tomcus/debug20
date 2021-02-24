@@ -7,3 +7,6 @@ LANGUAGES CXX)
 add_subdirectory(external_dependecies)
 
 add_subdirectory(src)
+
+enable_testing()
+add_subdirectory(tests)
