@@ -3,8 +3,8 @@ name: Build and test
 on: [push]
 
 env:
-  CC: gcc-11
-  CXX: g++-11
+  CC: gcc-10
+  CXX: g++-10
 
 jobs:
   build_and_test:
