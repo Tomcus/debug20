@@ -8,6 +8,22 @@ struct modern_comparable {
     auto operator<=>(const modern_comparable& other) const = default;
 };
 
+void test_boolean_assert() {
+    d20::assert(true, "This shouldn't cause problems");
+    int line = 0;
+    try {
+        line = __LINE__; d20::assert(false, "This should be thrown");
+        assert(false);
+    } catch (const d20::assertion_error& e) {
+        #ifndef SOURCE_LOCATION_DUMMY
+        assert(e.where().line() == line);
+        #endif//SOURCE_LOCATION_DUMMY
+        assert(strcmp(e.what(), "This should be thrown") == 0);
+    } catch (const std::exception& e) {
+        assert(strcmp(e.what(), "This should be thrown") == 0);
+    }
+}
+
 template <typename A, typename B>
 void test_equality(const A& a, const B& b) {
     d20::assert_equals(a, b, "This shouldn't cause problems");
@@ -15,7 +31,7 @@ void test_equality(const A& a, const B& b) {
     try {
         line = __LINE__; d20::assert_not_equals(a, b, "This should be thrown");
         assert(false);
-    } catch (const d20::exception& e) {
+    } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
         #endif//SOURCE_LOCATION_DUMMY
@@ -32,7 +48,7 @@ void test_not_equality(const A& a, const B& b) {
     try {
         line = __LINE__; d20::assert_equals(a, b, "This should be thrown");
         assert(false);
-    } catch (const d20::exception& e) {
+    } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
         #endif//SOURCE_LOCATION_DUMMY
@@ -49,7 +65,7 @@ void test_lesser_then(const A& a, const B& b) {
     try {
         line = __LINE__; d20::assert_greater_equal(a, b, "This should be thrown");
         assert(false);
-    } catch (const d20::exception& e) {
+    } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
         #endif//SOURCE_LOCATION_DUMMY
@@ -66,7 +82,7 @@ void test_greater_then(const A& a, const B& b) {
     try {
         line = __LINE__; d20::assert_lesser_equal(a, b, "This should be thrown");
         assert(false);
-    } catch (const d20::exception& e) {
+    } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
         #endif//SOURCE_LOCATION_DUMMY
@@ -113,6 +129,7 @@ void test_structs() {
 }
 
 int main() {
+    test_boolean_assert();
     test_strings();
     test_ints<int>(42);
     test_ints<int8_t>(0);
