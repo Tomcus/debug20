@@ -1,10 +1,12 @@
 #include "debug20/log.hpp"
+#include "debug20/exception.hpp"
+#include "debug20/assert.hpp"
 
 #include <string>
 #include <string_view>
 #include <fstream>
 #include <vector>
-#include <cassert>
+#include <iostream>
 
 const std::string_view FILE_NAME{"test.log"};
 
@@ -39,7 +41,7 @@ void load_and_test_log_file() {
     for (auto log_line:log_lines) {
         std::string file_line;
         std::getline(log_file, file_line);
-        assert(file_line == log_line);
+        d20::assert_equals(file_line, log_line, "Expected line is not equal to real line.");
     }
     if (log_file.eof()) {
         return;
@@ -49,7 +51,7 @@ void load_and_test_log_file() {
         if (log_file.eof() && extra == "") {
             return;
         } else {
-            assert(false);
+            d20::assert(false, "Found extra data at log file.");
         }
     }
 }
@@ -68,6 +70,14 @@ void do_not_fail_logging() {
 
 int main() {
     log_to_file();
-    load_and_test_log_file();
-    do_not_fail_logging();
+    try {
+        load_and_test_log_file();
+        do_not_fail_logging();
+    } catch (d20::assertion_error& ae) {
+        std::cout << "Assertion failed!\nAssertion message: " << ae.what() << "\nAssertion location: " << ae.where().file_name() << ":" << ae.where().line();
+    } catch (std::exception& e) {
+        std::cout << "Exception caught in test suite: " << e.what() << "\n";
+        return 1;
+    }
+    return 0;
 }
