@@ -1,5 +1,6 @@
 #include "debug20/assert.hpp"
-#include <cassert>
+#include <iostream>
+#include <sstream>
 #include <cstring>
 #include <compare>
 
@@ -13,14 +14,19 @@ void test_boolean_assert() {
     int line = 0;
     try {
         line = __LINE__; d20::assert(false, "This should be thrown");
-        assert(false);
+        std::cout << "Boolean assert test failed" << std::endl;
+        exit(1);
     } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
-        assert(e.where().line() == line);
+        d20::assert(e.where().line() == line, "Line number mismatch.");
         #endif//SOURCE_LOCATION_DUMMY
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     } catch (const std::exception& e) {
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     }
 }
 
@@ -30,14 +36,18 @@ void test_equality(const A& a, const B& b) {
     int line = 0;
     try {
         line = __LINE__; d20::assert_not_equals(a, b, "This should be thrown");
-        assert(false);
+        d20::assert(false, "Equality test failed");
     } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
-        assert(e.where().line() == line);
+        d20::assert(e.where().line() == line, "Line number mismatch.");
         #endif//SOURCE_LOCATION_DUMMY
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     } catch (const std::exception& e) {
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     }
 }
 
@@ -47,14 +57,18 @@ void test_not_equality(const A& a, const B& b) {
     int line = 0;
     try {
         line = __LINE__; d20::assert_equals(a, b, "This should be thrown");
-        assert(false);
+        d20::assert(false, "Equality test failed");
     } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
-        assert(e.where().line() == line);
+        d20::assert(e.where().line() == line, "Line number mismatch.");
         #endif//SOURCE_LOCATION_DUMMY
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     } catch (const std::exception& e) {
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     }
 }
 
@@ -64,14 +78,18 @@ void test_lesser_then(const A& a, const B& b) {
     int line = 0;
     try {
         line = __LINE__; d20::assert_greater_equal(a, b, "This should be thrown");
-        assert(false);
+        d20::assert(false, "Equality test failed");
     } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
-        assert(e.where().line() == line);
+        d20::assert(e.where().line() == line, "Line number mismatch.");
         #endif//SOURCE_LOCATION_DUMMY
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     } catch (const std::exception& e) {
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     }
 }
 
@@ -81,14 +99,18 @@ void test_greater_then(const A& a, const B& b) {
     int line = 0;
     try {
         line = __LINE__; d20::assert_lesser_equal(a, b, "This should be thrown");
-        assert(false);
+        d20::assert(false, "Equality test failed");
     } catch (const d20::assertion_error& e) {
         #ifndef SOURCE_LOCATION_DUMMY
-        assert(e.where().line() == line);
+        d20::assert(e.where().line() == line, "Line number mismatch.");
         #endif//SOURCE_LOCATION_DUMMY
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     } catch (const std::exception& e) {
-        assert(strcmp(e.what(), "This should be thrown") == 0);
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
     }
 }
 
