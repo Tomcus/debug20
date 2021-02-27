@@ -1,1 +1,2 @@
+add_subdirectory(source_location)
 add_subdirectory(debug20)

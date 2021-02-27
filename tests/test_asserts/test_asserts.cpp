@@ -16,7 +16,9 @@ void test_equality(const A& a, const B& b) {
         line = __LINE__; d20::assert_not_equals(a, b, "This should be thrown");
         assert(false);
     } catch (const d20::exception& e) {
+        #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
+        #endif//SOURCE_LOCATION_DUMMY
         assert(strcmp(e.what(), "This should be thrown") == 0);
     } catch (const std::exception& e) {
         assert(strcmp(e.what(), "This should be thrown") == 0);
@@ -31,7 +33,9 @@ void test_not_equality(const A& a, const B& b) {
         line = __LINE__; d20::assert_equals(a, b, "This should be thrown");
         assert(false);
     } catch (const d20::exception& e) {
+        #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
+        #endif//SOURCE_LOCATION_DUMMY
         assert(strcmp(e.what(), "This should be thrown") == 0);
     } catch (const std::exception& e) {
         assert(strcmp(e.what(), "This should be thrown") == 0);
@@ -46,7 +50,9 @@ void test_lesser_then(const A& a, const B& b) {
         line = __LINE__; d20::assert_greater_equal(a, b, "This should be thrown");
         assert(false);
     } catch (const d20::exception& e) {
+        #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
+        #endif//SOURCE_LOCATION_DUMMY
         assert(strcmp(e.what(), "This should be thrown") == 0);
     } catch (const std::exception& e) {
         assert(strcmp(e.what(), "This should be thrown") == 0);
@@ -61,7 +67,9 @@ void test_greater_then(const A& a, const B& b) {
         line = __LINE__; d20::assert_lesser_equal(a, b, "This should be thrown");
         assert(false);
     } catch (const d20::exception& e) {
+        #ifndef SOURCE_LOCATION_DUMMY
         assert(e.where().line() == line);
+        #endif//SOURCE_LOCATION_DUMMY
         assert(strcmp(e.what(), "This should be thrown") == 0);
     } catch (const std::exception& e) {
         assert(strcmp(e.what(), "This should be thrown") == 0);

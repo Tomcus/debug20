@@ -6,7 +6,7 @@
 #include <string_view>
 #include <vector>
 #include <filesystem>
-#include <source_location>
+#include "source_location/source_location.hpp"
 #include <fmt/core.h>
 #include <fmt/os.h>
 #include <fmt/chrono.h>
@@ -51,7 +51,7 @@ namespace d20 {
 		explicit logger_impl(const std::string& name);
 		void append_printer(printer p) noexcept;
 		template <logging_level severity>
-		void log(const std::string_view& message, const std::source_location& location = std::source_location::current()) const noexcept {
+		void log(const std::string_view& message, const source_location& location = source_location::current()) const noexcept {
 			auto time = std::time(nullptr);
 			auto to_print = fmt::format(log_template.c_str(), fmt::arg("message", message),
 															  fmt::arg("severity", to_string(severity)),

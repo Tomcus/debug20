@@ -3,18 +3,18 @@
 
 #include <stdexcept>
 #include <string>
-#include <source_location>
+#include "source_location/source_location.hpp"
 
 namespace d20 {
 	struct exception: public std::exception {
-		exception(const std::source_location& location);
-		std::source_location where() const noexcept;
+		exception(const source_location& location);
+		source_location where() const noexcept;
 	protected:
-		std::source_location sl;
+		source_location sl;
 	};
 
 	struct system_error: public exception {
-		system_error(const std::source_location& location = std::source_location::current());
+		system_error(const source_location& location = source_location::current());
 		const char* what() const noexcept override;
 	protected:
 		std::string error_message;

@@ -4,7 +4,7 @@ add_library(debug20
 	log.cpp log.hpp
 )
 
-target_link_libraries(debug20 PUBLIC fmt)
+target_link_libraries(debug20 PUBLIC fmt source_location)
 
 target_compile_features(debug20 PUBLIC cxx_std_20)
 target_compile_options(debug20 PRIVATE -Wall -Wextra -Wpedantic -Werror)
