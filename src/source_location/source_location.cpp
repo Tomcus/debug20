@@ -1,8 +1,6 @@
 #include "source_location.hpp"
 
-#if __has_include(<source_location>)
-
-#else
+#ifdef SOURCE_LOCATION_DUMMY
 
 constexpr std::uint_least32_t source_location::line() const noexcept {
     return 0;
@@ -24,4 +22,4 @@ source_location source_location::current() {
     return source_location{};
 }
 
-#endif //__has_include()
+#endif//SOURCE_LOCATION_DUMMY
