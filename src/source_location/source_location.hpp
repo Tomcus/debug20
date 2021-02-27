@@ -14,12 +14,22 @@ using source_location = std::source_location;
 #define SOURCE_LOCATION_DUMMY
 
 struct source_location {
-    constexpr std::uint_least32_t line() const noexcept;
-    constexpr std::uint_least32_t column() const noexcept;
-    constexpr const char* function_name() const noexcept;
-    constexpr const char* file_name() const noexcept;
+    constexpr std::uint_least32_t line() const noexcept {
+        return 0;
+    }
+    constexpr std::uint_least32_t column() const noexcept {
+        return 0;
+    }
+    constexpr const char* function_name() const noexcept {
+        return "DUMMY source_location - please use newer (if possible) compiler.";
+    }
+    constexpr const char* file_name() const noexcept {
+        return "DUMMY source_location - please use newer (if possible) compiler.";
+    }
 
-    static source_location current();
+    static source_location current() {
+        return {};
+    }
 };
 
 #endif//__has_include()
