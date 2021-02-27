@@ -15,7 +15,11 @@ namespace d20 {
 	};
 
 
-	constexpr void assert(const bool result, const std::string_view& message = "", const source_location soc_loc = source_location::current());
+	constexpr void assert(const bool result, const std::string_view& message = "", const source_location soc_loc = source_location::current()) {
+		if (!result) {
+			throw assertion_error(message, soc_loc);
+		}
+	}
 
 	template <typename type_a, typename type_b>
 	constexpr void assert_equals(const type_a& a, const type_b& b, const std::string_view& message = "", const source_location soc_loc = source_location::current()) {
