@@ -75,6 +75,7 @@ int main() {
         do_not_fail_logging();
     } catch (d20::assertion_error& ae) {
         std::cout << "Assertion failed!\nAssertion message: " << ae.what() << "\nAssertion location: " << ae.where().file_name() << ":" << ae.where().line();
+        return 1;
     } catch (std::exception& e) {
         std::cout << "Exception caught in test suite: " << e.what() << "\n";
         return 1;
