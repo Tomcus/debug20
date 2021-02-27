@@ -21,7 +21,7 @@ d20::logger get_logger() {
 }
 
 void log_to_file() {
-    d20::log_template = "[{severity}][{module}] {function}: {message}\n";
+    d20::log_template = "[{severity}][{module}]: {message}\n";
 
     auto logger = get_logger();
 
@@ -31,8 +31,8 @@ void log_to_file() {
 }
 
 const std::vector<std::string_view> log_lines{
-    "[warning][test] void log_to_file(): Testing warning",
-    "[error][test] void log_to_file(): Final Error"
+    "[warning][test]: Testing warning",
+    "[error][test]: Final Error"
 };
 
 void load_and_test_log_file() {
