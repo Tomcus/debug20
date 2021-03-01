@@ -15,7 +15,7 @@ namespace d20 {
 	};
 
 
-	constexpr void assert(const bool result, const std::string_view& message = "", const source_location soc_loc = source_location::current()) {
+	constexpr void assert_bool(const bool result, const std::string_view& message = "", const source_location soc_loc = source_location::current()) {
 		if (!result) {
 			throw assertion_error(message, soc_loc);
 		}

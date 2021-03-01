@@ -51,7 +51,7 @@ void load_and_test_log_file() {
         if (log_file.eof() && extra == "") {
             return;
         } else {
-            d20::assert(false, "Found extra data at log file.");
+            d20::assert_bool(false, "Found extra data at log file.");
         }
     }
 }
