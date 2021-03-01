@@ -172,7 +172,6 @@ void test_pointers() {
     }
 
     d20::assert_not_null(&mc, "This shouldn't cause problems");
-    int line = 0;
     try {
         line = __LINE__; d20::assert_null(&mc, "This should be thrown");
         d20::assert(false, "Equality test failed");
