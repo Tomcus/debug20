@@ -150,6 +150,46 @@ void test_structs() {
     test_greater_then(B{97}, A{13});
 }
 
+void test_pointers() {
+    modern_comparable mc{15};
+
+    d20::assert_null(nullptr, "This shouldn't cause problems");
+    int line = 0;
+    try {
+        line = __LINE__; d20::assert_not_null(nullptr, "This should be thrown");
+        d20::assert(false, "Equality test failed");
+    } catch (const d20::assertion_error& e) {
+        #ifndef SOURCE_LOCATION_DUMMY
+        d20::assert(e.where().line() == line, "Line number mismatch.");
+        #endif//SOURCE_LOCATION_DUMMY
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
+    } catch (const std::exception& e) {
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
+    }
+
+    d20::assert_not_null(&mc, "This shouldn't cause problems");
+    int line = 0;
+    try {
+        line = __LINE__; d20::assert_null(&mc, "This should be thrown");
+        d20::assert(false, "Equality test failed");
+    } catch (const d20::assertion_error& e) {
+        #ifndef SOURCE_LOCATION_DUMMY
+        d20::assert(e.where().line() == line, "Line number mismatch.");
+        #endif//SOURCE_LOCATION_DUMMY
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
+    } catch (const std::exception& e) {
+        std::ostringstream oss;
+        oss << "Wrong exception caught. Expected >This should be thrown<, but recieved >" << e.what() << "<";
+        d20::assert(strcmp(e.what(), "This should be thrown") == 0, oss.str());
+    }
+}
+
 int main() {
     test_boolean_assert();
     test_strings();
@@ -161,4 +201,5 @@ int main() {
     test_floats<double>(-20.0);
     test_floats<float>(20.0);
     test_structs<modern_comparable, modern_comparable>();
+    test_pointers();
 }

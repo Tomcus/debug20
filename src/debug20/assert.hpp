@@ -61,6 +61,20 @@ namespace d20 {
 			throw assertion_error(message, soc_loc);
 		}
 	}
+
+	template<typename pointer>
+	constexpr void assert_null(const pointer p, const std::string_view& message = "", const source_location soc_loc = source_location::current()) {
+		if (p != nullptr) {
+			throw assertion_error(message, soc_loc);
+		}
+	}
+
+	template<typename pointer>
+	constexpr void assert_not_null(const pointer p, const std::string_view& message = "", const source_location soc_loc = source_location::current()) {
+		if (p == nullptr) {
+			throw assertion_error(message, soc_loc);
+		}
+	}
 }
 
 #endif//DEBUG20_ASSERT_HPP
