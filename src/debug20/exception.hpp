@@ -19,6 +19,13 @@ namespace d20 {
 	protected:
 		std::string error_message;
 	};
+
+	struct runtime_error: public exception {
+		runtime_error(const std::string& message, const source_location& location = source_location::current());
+		const char* what() const noexcept override;
+	protected:
+		std::string error_message;
+	};
 }
 
 #endif//DEBUG20_EXCEPTION_HPP

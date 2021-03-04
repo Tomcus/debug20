@@ -19,3 +19,10 @@ system_error::system_error(const source_location& location):exception(location) 
 const char* system_error::what() const noexcept {
 	return error_message.c_str();
 }
+
+runtime_error::runtime_error(const std::string& message, const source_location& location):exception(location),
+																						  error_message(message) { }
+
+const char* runtime_error::what() const noexcept {
+	return error_message.c_str();
+}
