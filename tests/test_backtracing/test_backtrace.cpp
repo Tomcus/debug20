@@ -23,8 +23,8 @@ int main() {
     d20::backtrace_data data;
     func_1(data);
 
+    std::string to_delete = "";
     for (auto entry:data) {
-        std::string to_delete = "";
         for (auto func_name:functions) {
             if (entry.find(func_name) != std::string::npos) {
                 to_delete = func_name;
