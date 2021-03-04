@@ -1,2 +1,3 @@
 add_subdirectory(test_asserts)
 add_subdirectory(test_logging)
+add_subdirectory(test_backtracing)

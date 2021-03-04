@@ -2,7 +2,12 @@ add_library(debug20
 	assert.cpp assert.hpp
 	exception.cpp exception.hpp
 	log.cpp log.hpp
+	backtrace.cpp backtrace.hpp
 )
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	target_link_options(debug20 PUBLIC -rdynamic)
+endif()
 
 target_link_libraries(debug20 PUBLIC fmt source_location)
 
