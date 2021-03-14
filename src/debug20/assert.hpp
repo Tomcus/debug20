@@ -11,10 +11,13 @@ namespace d20 {
 		assertion_error(const std::string_view message, const source_location& location);
 	};
 
+	constexpr void fail(const std::string_view& message = "", const source_location = source_location::current()) {
+		throw assertion_error(message, soc_loc);
+	}
 
 	constexpr void assert_true(const bool result, const std::string_view& message = "", const source_location soc_loc = source_location::current()) {
 		if (!result) {
-			throw assertion_error(message, soc_loc);
+			fail(message, soc_loc);
 		}
 	}
 

@@ -1,4 +1,5 @@
 #include "exception.hpp"
+#include "backtrace.hpp"
 
 #include <errno.h>
 #include <cstring>
@@ -7,7 +8,7 @@
 using namespace d20;
 
 exception::exception(const std::string_view message, const source_location& location):
-					 error_message{message}, sl{location}, bcd{get_bactrace()} { }
+					 error_message{message}, sl{location}, bcd(get_backtrace()) { }
 
 exception::exception(const source_location& location): exception{"", location} { }
 
@@ -19,7 +20,7 @@ const char* exception::what() const noexcept {
 	return error_message.c_str();
 }
 
-backtrace_data exception::from() const noexcept {
+std::vector<std::string> exception::from() const noexcept {
 	return bcd;
 }
 
@@ -35,8 +36,8 @@ system_error::system_error(const source_location& location):exception(location) 
 	error_message = err_msg;
 }
 
-runtime_error::runtime_error(const std::string_view message, const source_location& location):exception(location),
-																						  error_message(message) { }
+runtime_error::runtime_error(const std::string_view message, const source_location& location):
+							 exception(message, location) { }
 
 #if defined(_WIN32)
 #include <windows.h>

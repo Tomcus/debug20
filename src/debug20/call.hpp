@@ -1,9 +1,9 @@
 #ifndef DEBUG20_CALL
 #define DEBUG20_CALL
 
-#include "exception.hpp"
-
 namespace d20 {
+    struct system_error;
+
     template<typename func, typename... Args>
     constexpr void sys_call(const func& function, Args ...args) {
         if (func(args...) != 0) {

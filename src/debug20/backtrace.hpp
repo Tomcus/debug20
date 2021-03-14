@@ -6,6 +6,7 @@
 
 #include <fmt/format.h>
 
+#include "assert.hpp"
 #include "exception.hpp"
 #include "call.hpp"
 

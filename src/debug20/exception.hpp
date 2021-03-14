@@ -3,10 +3,10 @@
 
 #include <stdexcept>
 #include <string>
+#include <vector>
 #include <string_view>
 
 #include "source_location/source_location.hpp"
-#include "backtrace.hpp"
 
 namespace d20 {
 	struct exception: public std::exception {
@@ -17,12 +17,12 @@ namespace d20 {
 		
 		source_location where() const noexcept;
 		
-		backtrace_data from() const noexcept;
+		std::vector<std::string> from() const noexcept;
 		void print_backtrace() const noexcept;
 	protected:
 		std::string error_message;
 		source_location sl;
-		backtrace_data bcd;
+		std::vector<std::string> bcd;
 	};
 
 	struct system_error: public exception {
