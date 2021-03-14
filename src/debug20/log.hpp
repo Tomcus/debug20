@@ -6,7 +6,9 @@
 #include <string_view>
 #include <vector>
 #include <filesystem>
+
 #include "source_location/source_location.hpp"
+
 #include <fmt/core.h>
 #include <fmt/os.h>
 #include <fmt/chrono.h>
@@ -20,6 +22,13 @@ namespace d20 {
 		ERROR = 4,
 		CRITICAL = 5
 	};
+
+	constexpr logging_level TRACE = logging_level::TRACE;
+	constexpr logging_level DEBUG = logging_level::DEBUG;
+	constexpr logging_level INFO = logging_level::INFO;
+	constexpr logging_level WARN = logging_level::WARN;
+	constexpr logging_level ERROR = logging_level::ERROR;
+	constexpr logging_level CRITICAL = logging_level::CRITICAL;
 
 	std::string to_string(const logging_level ll);
 
@@ -49,7 +58,9 @@ namespace d20 {
 	struct logger_impl {
 		explicit logger_impl(const std::string_view& name);
 		explicit logger_impl(const std::string& name);
+		
 		void append_printer(printer p) noexcept;
+		
 		template <logging_level severity>
 		void log(const std::string_view& message, const source_location& location = source_location::current()) const noexcept {
 			auto time = std::time(nullptr);
@@ -64,6 +75,7 @@ namespace d20 {
 				printer->log<severity>(to_print);
 			}
 		}
+
 	private:
 		std::string module_name;
 		std::vector<printer> outputs;

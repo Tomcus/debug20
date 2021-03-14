@@ -13,7 +13,7 @@ namespace d20 {
 
     #if defined(_WIN32)
     template<typename func, typename... Args>
-    constexpr void winapi_call() {
+    constexpr void winapi_call(const func& function, Args ...args) {
         if (func(args...) != 0) {
             throw windows_error();
         }
