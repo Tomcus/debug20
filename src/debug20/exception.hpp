@@ -26,6 +26,15 @@ namespace d20 {
 	protected:
 		std::string error_message;
 	};
+
+	#if defined(_WIN32)
+	struct windows_error: public exception {
+		windows_error(const source_location& location = source_location::current());
+		const char* what() const noexcept override;
+	protected:
+		std::string error_message{};
+	};
+	#endif
 }
 
 #endif//DEBUG20_EXCEPTION_HPP

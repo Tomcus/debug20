@@ -3,6 +3,7 @@ add_library(debug20
 	exception.cpp exception.hpp
 	log.cpp log.hpp
 	backtrace.cpp backtrace.hpp
+	call.hpp
 )
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
