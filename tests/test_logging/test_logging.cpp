@@ -51,7 +51,7 @@ void load_and_test_log_file() {
         if (log_file.eof() && extra == "") {
             return;
         } else {
-            d20::assert_bool(false, "Found extra data at log file.");
+            d20::assert_true(false, "Found extra data at log file.");
         }
     }
 }
@@ -66,6 +66,13 @@ void do_not_fail_logging() {
     logger->log<d20::logging_level::WARN>("Logging warning");
     logger->log<d20::logging_level::ERROR>("Logging error");
     logger->log<d20::logging_level::CRITICAL>("Logging critical error");
+
+    logger->log<d20::TRACE>("Logging trace");
+    logger->log<d20::DEBUG>("Logging debug");
+    logger->log<d20::INFO>("Logging info");
+    logger->log<d20::WARN>("Logging warning");
+    logger->log<d20::ERROR>("Logging error");
+    logger->log<d20::CRITICAL>("Logging critical error");
 }
 
 int main() {
