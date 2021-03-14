@@ -38,7 +38,7 @@ namespace d20 {
 		printer_impl(FILE* print_output);
 		~printer_impl();
 		template <logging_level severity>
-		void log(const std::string_view& message) const noexcept{
+		void log(const std::string_view message) const noexcept{
 			if (severity >= log_at) {
 				fputs(message.data(), output);
 			}
@@ -56,13 +56,13 @@ namespace d20 {
 	printer get_file_printer(const std::filesystem::path& path);
 
 	struct logger_impl {
-		explicit logger_impl(const std::string_view& name);
+		explicit logger_impl(const std::string_view name);
 		explicit logger_impl(const std::string& name);
 		
 		void append_printer(printer p) noexcept;
 		
 		template <logging_level severity>
-		void log(const std::string_view& message, const source_location& location = source_location::current()) const noexcept {
+		void log(const std::string_view message, const source_location& location = source_location::current()) const noexcept {
 			auto time = std::time(nullptr);
 			auto to_print = fmt::format(log_template.c_str(), fmt::arg("message", message),
 															  fmt::arg("severity", to_string(severity)),
@@ -83,7 +83,7 @@ namespace d20 {
 
 	using logger = std::shared_ptr<logger_impl>;
 
-	logger get_logger(const std::string_view& logger_name, const std::vector<printer>& printers = {});
+	logger get_logger(const std::string_view logger_name, const std::vector<printer>& printers = {});
 }
 
 #endif//DEBUD20_LOG_HPP

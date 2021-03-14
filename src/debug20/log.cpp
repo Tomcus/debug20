@@ -33,7 +33,7 @@ d20::printer d20::get_file_printer(const std::filesystem::path& path) {
 	return std::make_shared<printer_impl>(file);
 }
 
-d20::logger_impl::logger_impl(const std::string_view& name) {
+d20::logger_impl::logger_impl(const std::string_view name) {
 	module_name = name;
 }
 
@@ -63,7 +63,7 @@ void d20::logger_impl::append_printer(printer p) noexcept {
 	outputs.emplace_back(p);
 }
 
-d20::logger d20::get_logger(const std::string_view& logger_name, const std::vector<printer>& printers) {
+d20::logger d20::get_logger(const std::string_view logger_name, const std::vector<printer>& printers) {
 	auto res = std::make_shared<logger_impl>(logger_name);
 	for (auto printer:printers) {
 		res->append_printer(printer);
