@@ -10,6 +10,6 @@ void d20::print_backtrace() noexcept {
             fmt::print("{}\n", trace);
         }
     } catch (const exception& e) {
-        fmt::print(e.what());
+        puts(e.what());
     }
 }

@@ -40,7 +40,7 @@ namespace d20 {
 		template <logging_level severity>
 		void log(const std::string_view& message) const noexcept{
 			if (severity >= log_at) {
-				fmt::print(output, message);
+				fputs(message.data(), output);
 			}
 		}
 		void set_level(const logging_level& ll) noexcept;
