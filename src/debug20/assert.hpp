@@ -8,10 +8,7 @@
 
 namespace d20 {
 	struct assertion_error: public exception {
-		assertion_error(const std::string_view& message, const source_location& location);
-		const char* what() const noexcept override;
-	private:
-		std::string error_message{};
+		assertion_error(const std::string_view message, const source_location& location);
 	};
 
 

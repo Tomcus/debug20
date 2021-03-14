@@ -2,13 +2,32 @@
 
 #include <errno.h>
 #include <cstring>
+#include <cstdio>
 
 using namespace d20;
 
-exception::exception(const source_location& location): sl{location} { }
+exception::exception(const std::string_view message, const source_location& location):
+					 error_message{message}, sl{location}, bcd{get_bactrace()} { }
+
+exception::exception(const source_location& location): exception{"", location} { }
 
 source_location exception::where() const noexcept {
 	return sl;
+}
+
+const char* exception::what() const noexcept {
+	return error_message.c_str();
+}
+
+backtrace_data exception::from() const noexcept {
+	return bcd;
+}
+
+void exception::print_backtrace() const noexcept {
+	for (auto& str:bcd) {
+		puts(str.c_str());
+		putchar('\n');
+	}
 }
 
 system_error::system_error(const source_location& location):exception(location) {
@@ -16,16 +35,8 @@ system_error::system_error(const source_location& location):exception(location) 
 	error_message = err_msg;
 }
 
-const char* system_error::what() const noexcept {
-	return error_message.c_str();
-}
-
-runtime_error::runtime_error(const std::string& message, const source_location& location):exception(location),
+runtime_error::runtime_error(const std::string_view message, const source_location& location):exception(location),
 																						  error_message(message) { }
-
-const char* runtime_error::what() const noexcept {
-	return error_message.c_str();
-}
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -40,9 +51,5 @@ windows_error::windows_error(const source_location& location):exception(location
 		
 		error_message = std::string{message, size};
 	}
-}
-
-const char* windows_error::what() const noexcept {
-	return error_message.c_str();
 }
 #endif
